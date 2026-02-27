@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Live Wins Counter</title>
+<style>
+body {
+    margin: 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Cinzel, serif;
+}
+
+.counter {
+    font-size: 120px;
+    font-weight: bold;
+    color: #ff4fd8;
+    text-shadow: 0 0 20px #ff00c8;
+}
+</style>
+</head>
+<body>
+
+<div class="counter" id="wins">0</div>
+
+<script>
+async function fetchWins() {
+    try {
+        const response = await fetch("wins.txt?cache=" + new Date().getTime());
+        const text = await response.text();
+        document.getElementById("wins").innerText = text.trim();
+    } catch (error) {
+        console.log("Waiting for wins file...");
+    }
+}
+
+setInterval(fetchWins, 1000);
+fetchWins();
+</script>
+
+</body>
+</html>
